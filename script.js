@@ -116,8 +116,8 @@
       const londonNow = getLondonParts();
       const isLiveWindow = londonNow.hour === LIVE_HOUR && londonNow.minute < 45;
       noteEl.textContent = isLiveWindow
-        ? "We're live now · Wolverhampton time (UK) — jump in on Instagram"
-        : "Until tonight’s live · Wolverhampton time (UK)";
+        ? "We're live now · Wolverhampton time (UK) — jump in on TikTok"
+        : "Until tonight’s TikTok live · Wolverhampton time (UK)";
     }
   };
 
