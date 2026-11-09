@@ -97,6 +97,64 @@ a:hover {
   border-bottom-color: var(--line);
 }
 
+.site-header.is-scrolled .logo,
+.site-header.is-open .logo {
+  color: var(--ink);
+}
+
+.site-header.is-scrolled .logo:hover,
+.site-header.is-open .logo:hover {
+  color: var(--ink);
+}
+
+.site-header.is-scrolled .logo-mark,
+.site-header.is-open .logo-mark {
+  border-bottom-color: var(--gold);
+}
+
+.site-header.is-scrolled .nav a,
+.site-header.is-open .nav a {
+  color: var(--ink-soft);
+  text-shadow: none;
+}
+
+.site-header.is-scrolled .nav a:hover,
+.site-header.is-open .nav a:hover {
+  color: var(--ink);
+}
+
+.site-header.is-scrolled .live-chip,
+.site-header.is-open .live-chip {
+  color: var(--ruby);
+  border-color: rgba(122, 46, 59, 0.25);
+  background: rgba(122, 46, 59, 0.06);
+}
+
+.site-header.is-scrolled .header-actions .btn-solid,
+.site-header.is-open .header-actions .btn-solid {
+  background: var(--ink);
+  color: #f7f2ea;
+  border-color: var(--ink);
+}
+
+.site-header.is-scrolled .header-actions .btn-solid:hover,
+.site-header.is-open .header-actions .btn-solid:hover {
+  background: var(--ruby);
+  border-color: var(--ruby);
+  color: #fff;
+}
+
+.site-header.is-scrolled .menu-toggle,
+.site-header.is-open .menu-toggle {
+  border-color: var(--line);
+  background: transparent;
+}
+
+.site-header.is-scrolled .menu-toggle span,
+.site-header.is-open .menu-toggle span {
+  background: var(--ink);
+}
+
 .header-inner {
   max-width: 1240px;
   margin: 0 auto;
@@ -113,18 +171,19 @@ a:hover {
   align-items: baseline;
   gap: 0.55rem;
   text-decoration: none;
-  color: var(--ink);
+  color: #f7f2ea;
+  transition: color 0.3s var(--ease);
 }
 
 .logo:hover {
-  color: var(--ink);
+  color: #fff;
 }
 
 .logo-mark {
   font-family: var(--font-display);
   font-size: 1.35rem;
   letter-spacing: 0.08em;
-  border-bottom: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold-bright);
   line-height: 1;
   padding-bottom: 0.05rem;
 }
@@ -147,11 +206,13 @@ a:hover {
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--ink-soft);
+  color: rgba(247, 242, 234, 0.88);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+  transition: color 0.3s var(--ease);
 }
 
 .nav a:hover {
-  color: var(--ink);
+  color: #fff;
 }
 
 .header-actions {
@@ -170,10 +231,24 @@ a:hover {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ruby);
+  color: #f7f2ea;
   padding: 0.45rem 0.7rem;
-  border: 1px solid rgba(122, 46, 59, 0.25);
-  background: rgba(122, 46, 59, 0.06);
+  border: 1px solid rgba(247, 242, 234, 0.35);
+  background: rgba(18, 12, 8, 0.28);
+  backdrop-filter: blur(8px);
+  transition: color 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.header-actions .btn-solid {
+  background: #f7f2ea;
+  color: var(--ink);
+  border-color: #f7f2ea;
+}
+
+.header-actions .btn-solid:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--ink);
 }
 
 .live-dot {
@@ -195,20 +270,21 @@ a:hover {
   margin-left: auto;
   width: 42px;
   height: 42px;
-  border: 1px solid var(--line);
-  background: transparent;
+  border: 1px solid rgba(247, 242, 234, 0.45);
+  background: rgba(18, 12, 8, 0.22);
   display: grid;
   place-content: center;
   gap: 6px;
   cursor: pointer;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
 .menu-toggle span {
   display: block;
   width: 18px;
   height: 1.5px;
-  background: var(--ink);
-  transition: transform 0.25s var(--ease);
+  background: #f7f2ea;
+  transition: transform 0.25s var(--ease), background 0.3s var(--ease);
 }
 
 .menu-toggle[aria-expanded="true"] span:first-child {
