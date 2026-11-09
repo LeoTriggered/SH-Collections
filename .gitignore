@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+.mobile-check/
+mobile-previews/
+test-results/
+*.log
