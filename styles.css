@@ -561,40 +561,69 @@ em {
   margin-bottom: 1.75rem;
 }
 
-.countdown {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.65rem;
-  max-width: 24rem;
-}
-
-.count-block {
+.live-window {
+  max-width: 28rem;
+  padding: 1.15rem 1.2rem;
   background: var(--panel);
   border: 1px solid var(--line);
-  padding: 1rem 0.75rem;
-  text-align: center;
 }
 
-.count-block span {
-  display: block;
+.live-window.is-live-window {
+  border-color: rgba(122, 46, 59, 0.35);
+  box-shadow: inset 3px 0 0 var(--ruby);
+}
+
+.live-window-times {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.75rem;
   font-family: var(--font-display);
-  font-size: 2rem;
+  font-size: clamp(1.55rem, 4vw, 2rem);
   line-height: 1;
 }
 
-.count-block small {
-  display: block;
-  margin-top: 0.45rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+.live-window-sep {
+  color: var(--gold);
+  font-size: 1.1rem;
 }
 
 .countdown-note {
-  margin: 0.85rem 0 0;
+  margin: 0.75rem 0 0;
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+.notify-steps {
+  list-style: none;
+  margin: 1.35rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+  max-width: 32rem;
+}
+
+.notify-steps li {
+  position: relative;
+  padding-left: 1.15rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.notify-steps li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.notify-steps strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .live-actions {

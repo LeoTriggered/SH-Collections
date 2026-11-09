@@ -1,5 +1,6 @@
 (() => {
-  const LIVE_HOUR = 19; // 7:00 pm Wolverhampton / UK (Europe/London)
+  const LIVE_START = 15; // 3:00 pm Wolverhampton / UK
+  const LIVE_END = 22; // 10:00 pm Wolverhampton / UK
 
   const header = document.querySelector("[data-header]");
   const menuToggle = document.querySelector("[data-menu-toggle]");
@@ -35,11 +36,8 @@
     });
   }
 
-  const hoursEl = document.querySelector("[data-hours]");
-  const minutesEl = document.querySelector("[data-minutes]");
-  const secondsEl = document.querySelector("[data-seconds]");
   const noteEl = document.querySelector("[data-countdown-note]");
-  const pad = (n) => String(n).padStart(2, "0");
+  const statusBox = document.querySelector("[data-live-status]");
 
   const getLondonParts = (date = new Date()) => {
     const parts = new Intl.DateTimeFormat("en-GB", {
@@ -67,62 +65,25 @@
     };
   };
 
-  const londonWallTimeToUtcMs = (year, month, day, hour, minute = 0, second = 0) => {
-    let guess = Date.UTC(year, month - 1, day, hour, minute, second);
-    for (let i = 0; i < 3; i += 1) {
-      const asLondon = getLondonParts(new Date(guess));
-      const asUtcLike = Date.UTC(
-        asLondon.year,
-        asLondon.month - 1,
-        asLondon.day,
-        asLondon.hour,
-        asLondon.minute,
-        asLondon.second
-      );
-      const target = Date.UTC(year, month - 1, day, hour, minute, second);
-      guess += target - asUtcLike;
+  const updateLiveStatus = () => {
+    if (!noteEl) return;
+    const london = getLondonParts();
+    const mins = london.hour * 60 + london.minute;
+    const start = LIVE_START * 60;
+    const end = LIVE_END * 60;
+    const inWindow = mins >= start && mins < end;
+
+    if (statusBox) {
+      statusBox.classList.toggle("is-live-window", inWindow);
     }
-    return guess;
+
+    noteEl.textContent = inWindow
+      ? "Live window is open now · Wolverhampton time (UK) — follow TikTok & turn on notifications"
+      : "Lives around 3pm–10pm · Wolverhampton time (UK) — follow & turn on notifications";
   };
 
-  const nextLiveUtcMs = () => {
-    const now = new Date();
-    const london = getLondonParts(now);
-    let target = londonWallTimeToUtcMs(london.year, london.month, london.day, LIVE_HOUR);
-
-    if (now.getTime() >= target) {
-      const tomorrow = new Date(Date.UTC(london.year, london.month - 1, london.day + 1, 12));
-      const t = getLondonParts(tomorrow);
-      target = londonWallTimeToUtcMs(t.year, t.month, t.day, LIVE_HOUR);
-    }
-    return target;
-  };
-
-  const tickCountdown = () => {
-    if (!hoursEl || !minutesEl || !secondsEl) return;
-
-    let diff = Math.max(0, nextLiveUtcMs() - Date.now());
-    const hours = Math.floor(diff / 3_600_000);
-    diff %= 3_600_000;
-    const minutes = Math.floor(diff / 60_000);
-    diff %= 60_000;
-    const seconds = Math.floor(diff / 1000);
-
-    hoursEl.textContent = pad(hours);
-    minutesEl.textContent = pad(minutes);
-    secondsEl.textContent = pad(seconds);
-
-    if (noteEl) {
-      const londonNow = getLondonParts();
-      const isLiveWindow = londonNow.hour === LIVE_HOUR && londonNow.minute < 45;
-      noteEl.textContent = isLiveWindow
-        ? "We're live now · Wolverhampton time (UK) — jump in on TikTok"
-        : "Until tonight’s TikTok live · Wolverhampton time (UK)";
-    }
-  };
-
-  tickCountdown();
-  setInterval(tickCountdown, 1000);
+  updateLiveStatus();
+  setInterval(updateLiveStatus, 30_000);
 
   const revealTargets = [
     ...document.querySelectorAll(
